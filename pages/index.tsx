@@ -13,11 +13,6 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Translate it!</h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
         <TranslateLanguageForm />
       </main>
     </div>
