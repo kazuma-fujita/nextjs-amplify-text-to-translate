@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useCallback } from "react";
+import { useState } from "react";
 import { ExchangeLanguageSelectBox } from "./exchange-language-select-box";
 import { TranslateLanguageTextarea } from "./translate-language-textarea";
 

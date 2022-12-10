@@ -1,5 +1,6 @@
-import { ChangeEvent, useState, useCallback } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "../../styles/Home.module.css";
+import { languageOptions } from "../data/language-options";
 import useTranslateLanguage from "../hooks/use-translate-language";
 
 type Props = { sourceLanguage: string; targetLanguage: string };
@@ -20,7 +21,7 @@ export const TranslateLanguageTextarea = ({
   return (
     <div className={styles.grid}>
       <div className={styles.card}>
-        <h2>Japanese</h2>
+        <h2>{getLanguageLabel(sourceLanguage)}</h2>
         <textarea
           name="source"
           value={sourceValue}
@@ -31,7 +32,7 @@ export const TranslateLanguageTextarea = ({
       </div>
       <div>&rarr;</div>
       <div className={styles.card}>
-        <h2>English</h2>
+        <h2>{getLanguageLabel(targetLanguage)}</h2>
         <textarea
           name="target"
           rows={8}
@@ -42,4 +43,14 @@ export const TranslateLanguageTextarea = ({
       </div>
     </div>
   );
+};
+
+const getLanguageLabel = (languageCode: string): string => {
+  const foundOption = languageOptions.find(
+    (option) => option.value === languageCode
+  );
+  if (!foundOption) {
+    throw Error("selected language is not found");
+  }
+  return foundOption.label;
 };
