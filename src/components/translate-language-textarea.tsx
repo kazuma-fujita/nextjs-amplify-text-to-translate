@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import { languageOptions } from "../data/language-options";
 import useTranslateLanguage from "../hooks/use-translate-language";
@@ -12,11 +12,24 @@ export const TranslateLanguageTextarea = ({
   const [sourceValue, setSourceValue] = useState("");
   const { translateLanguage, translatedText } = useTranslateLanguage();
 
-  const handleSourceChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const sourceText = event.target.value;
-    setSourceValue(sourceText);
-    translateLanguage(sourceText, sourceLanguage, targetLanguage);
-  };
+  const getLanguageLabel = useCallback((languageCode: string): string => {
+    const foundOption = languageOptions.find(
+      (option) => option.value === languageCode
+    );
+    if (!foundOption) {
+      throw Error("selected language is not found");
+    }
+    return foundOption.label;
+  }, []);
+
+  const handleSourceChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      const sourceText = event.target.value;
+      setSourceValue(sourceText);
+      translateLanguage(sourceText, sourceLanguage, targetLanguage);
+    },
+    [sourceLanguage, targetLanguage, translateLanguage]
+  );
 
   return (
     <div className={styles.grid}>
@@ -43,14 +56,4 @@ export const TranslateLanguageTextarea = ({
       </div>
     </div>
   );
-};
-
-const getLanguageLabel = (languageCode: string): string => {
-  const foundOption = languageOptions.find(
-    (option) => option.value === languageCode
-  );
-  if (!foundOption) {
-    throw Error("selected language is not found");
-  }
-  return foundOption.label;
 };
