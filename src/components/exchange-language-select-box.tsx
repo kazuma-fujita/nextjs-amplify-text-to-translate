@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import styles from "../../styles/Home.module.css";
 import { languageOptions } from "../data/language-options";
-import { SelectBox } from "./selecct-box";
+import { SelectBox } from "./select-box";
 
 type Props = {
   setSelectSource: Dispatch<string>;
