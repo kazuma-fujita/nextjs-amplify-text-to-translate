@@ -16,10 +16,7 @@ export const TranslateLanguageTextarea = ({
     const foundOption = languageOptions.find(
       (option) => option.value === languageCode
     );
-    if (!foundOption) {
-      throw Error("selected language is not found");
-    }
-    return foundOption.label;
+    return foundOption ? foundOption.label : "";
   }, []);
 
   const handleSourceChange = useCallback(
